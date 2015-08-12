@@ -8,5 +8,10 @@ ApplicationWindow {
 
     width: 800
     height: 600
+
+    MainForm{
+        id: mainForm
+        anchors.fill: parent
+    }
 }
 
