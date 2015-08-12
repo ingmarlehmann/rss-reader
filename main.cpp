@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QAbstractListModel>
 
 int main(int argc, char *argv[])
 {

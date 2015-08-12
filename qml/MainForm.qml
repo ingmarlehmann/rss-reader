@@ -12,20 +12,32 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-        width: 200
-        height: 400
+        width: 250
+        height: parent.height
 
-        color: "lightblue"
+        color: "lightgray"
 
         ListView{
             id: feedList
+
+            anchors.topMargin: 10
             anchors.fill: parent
 
             model: feedListModel
 
-            delegate: Text{
-                text: name
-                anchors.right: parent.right
+            delegate: RssItemDelegate{
+                anchors.left: parent.left
+
+                width: parent.width
+
+                clip: true
+
+                // This weirdness is due to naming ambiguity,
+                // the model has the same name as the delegate.
+                // TODO: Find out if there is a nicer way to
+                // achieve this (besides the obvious renaming)
+                headline: feedListModel.get(index).headline
+                summary: feedListModel.get(index).summary
             }
         }
     }
@@ -44,21 +56,24 @@ Rectangle {
         id: feedListModel
 
         ListElement{
-            name: "hackaday"
+            headline: "I shot the sheriff"
+            summary: "But I didn't shoot no deputy, oh no!"
             link: ""
         }
         ListElement{
-            name: "The Guardian"
+            headline: "Kungen har en ny kaffeflicka"
+            summary: "Wow, mycket spännande, måste läsa!"
             link: ""
         }
         ListElement{
-            name: "Blah"
+            headline: "Blah"
+            summary: "Out of ideas"
             link: ""
         }
         ListElement{
-            name: "Boooga booga"
+            headline: "Boooga booga"
+            summary: "Wooga wooga"
             link: ""
         }
     }
 }
-
