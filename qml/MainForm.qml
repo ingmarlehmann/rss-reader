@@ -1,55 +1,57 @@
 import QtQuick 2.0
+import QtWebKit 3.0
 
-Rectangle {
+Item {
     id: root
 
-    //width: 100
-    //height: 62
+    Row{
+        id: rowLayout
 
-    Rectangle{
-        id: leftColumn
-        //anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.centerIn: parent
+        anchors.fill: parent
 
-        width: 250
-        height: parent.height
+        Rectangle{
+            id: leftColumn
 
-        color: "lightgray"
+            width: 250
+            height: parent.height
 
-        ListView{
-            id: feedList
+            color: "lightgray"
 
-            anchors.topMargin: 10
-            anchors.fill: parent
+            ListView{
+                id: feedList
 
-            model: feedListModel
+                anchors.topMargin: 10
+                anchors.fill: parent
 
-            delegate: RssItemDelegate{
-                anchors.left: parent.left
+                model: feedListModel
 
-                width: parent.width
+                delegate: RssItemDelegate{
+                    anchors.left: parent.left
 
-                clip: true
+                    width: parent.width
 
-                // This weirdness is due to naming ambiguity,
-                // the model has the same name as the delegate.
-                // TODO: Find out if there is a nicer way to
-                // achieve this (besides the obvious renaming)
-                headline: feedListModel.get(index).headline
-                summary: feedListModel.get(index).summary
+                    clip: true
+
+                    // This weirdness is due to naming ambiguity,
+                    // the model has the same name as the delegate.
+                    // TODO: Find out if there is a nicer way to
+                    // achieve this (besides the obvious renaming)
+                    headline: feedListModel.get(index).headline
+                    summary: feedListModel.get(index).summary
+                }
             }
         }
-    }
 
+        WebView{
+            id: webView
 
-    Text{
-        id: centerText
-        anchors.centerIn: parent
+            height: parent.height
+            width: parent.width-leftColumn.width
 
-        text: "hello cruel World"
-        color: "black"
-    }
+            url: 'http://slashdot.org/'
+        }
+    } // Row
 
     // Temporary, will use real data later
     ListModel{
